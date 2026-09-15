@@ -186,6 +186,7 @@ public static class ExperimentVerification
             _nextClick = now + 1;
             return;
         }
+        if (QuestVerification.ExerciseMouse(ui)) return;
         if (QuestVerification.ExerciseVR(ui)) return;
         var buttons = ui.GetComponentsInChildren<Button>();
         var eyes = ui.GetComponentInChildren<ClosedEyesGraphic>();

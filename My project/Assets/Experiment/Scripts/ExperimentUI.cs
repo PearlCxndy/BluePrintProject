@@ -450,7 +450,7 @@ public class ExperimentUI : MonoBehaviour
         var module = system.GetComponent<XRUIInputModule>() ?? system.gameObject.AddComponent<XRUIInputModule>();
         module.enabled = true;
         module.enableXRInput = ExperimentVR.Requested;
-        module.enableMouseInput = !ExperimentVR.Requested;
+        module.enableMouseInput = Application.isEditor || !ExperimentVR.Requested;
         module.enableTouchInput = false;
         module.enableGamepadInput = false;
         module.enableJoystickInput = false;

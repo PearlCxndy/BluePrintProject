@@ -86,7 +86,8 @@ public class ExperimentVR : MonoBehaviour
         var rect = (RectTransform)_canvas.transform;
         rect.sizeDelta = new Vector2(1600, 1000);
         rect.localScale = Vector3.one * .0015f;
-        _canvas.GetComponent<GraphicRaycaster>().enabled = false;
+        // Keep the editor's world-space preview usable with a mouse or trackpad.
+        _canvas.GetComponent<GraphicRaycaster>().enabled = Application.isEditor;
         _canvas.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
         SetUILayer(_canvas.transform);
         foreach (var camera in FindObjectsByType<Camera>(FindObjectsSortMode.None))

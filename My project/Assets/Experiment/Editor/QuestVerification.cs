@@ -17,6 +17,11 @@ using UnityEngine.XR.OpenXR.Features.Interactions;
 public static class QuestVerification
 {
     static int _stage;
+    static int _mouseStage;
+    static double _nextMouse;
+    static Mouse _mouse;
+    static Vector2 _mousePosition;
+    static string _orderBeforeMouse;
     static double _next, _frozenStudyTime;
     static OculusTouchControllerProfile.OculusTouchController _controller;
     const string Batch = "Experiment.QuestBatch";
@@ -29,6 +34,8 @@ public static class QuestVerification
             SessionState.SetBool("Experiment.QuestPreview", false);
             if (_controller != null && _controller.added) InputSystem.RemoveDevice(_controller);
             _controller = null;
+            if (_mouse != null && _mouse.added) InputSystem.RemoveDevice(_mouse);
+            _mouse = null;
             if (!SessionState.GetBool(Batch, false)) return;
             SessionState.SetBool(Batch, false);
             var passed = File.Exists("Temp/ExperimentPreviews/flow-report.txt") && !File.Exists("Temp/ExperimentPreviews/flow-failure.txt");
@@ -64,6 +71,45 @@ public static class QuestVerification
         SessionState.SetBool("Experiment.QuestPreview", false);
         SessionState.SetBool(Batch, true);
         ExperimentVerification.StartFlowCheck();
+    }
+
+    public static bool ExerciseMouse(ExperimentUI ui)
+    {
+        if (_mouseStage >= 4) return false;
+        if (EditorApplication.timeSinceStartup < _nextMouse) return true;
+        _nextMouse = EditorApplication.timeSinceStartup + .5;
+        switch (_mouseStage++)
+        {
+            case 0:
+                // A batch editor has no focused window. Give its EventSystem the focus
+                // notification a user's click on the Game tab would normally provide.
+                if (Application.isBatchMode) EventSystem.current.SendMessage("OnApplicationFocus", true);
+                var button = ui.GetComponentsInChildren<Button>().Single(b => b.name == "Nature first");
+                _orderBeforeMouse = string.Join("|", ui.GetComponentsInChildren<Text>().Select(t => t.text));
+                _mouse = InputSystem.AddDevice<Mouse>();
+                Canvas.ForceUpdateCanvases();
+                _mousePosition = RectTransformUtility.WorldToScreenPoint(ui.Canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : ui.Canvas.worldCamera, button.transform.position);
+                InputSystem.QueueStateEvent(_mouse, new MouseState { position = _mousePosition });
+                break;
+            case 1:
+                InputSystem.QueueStateEvent(_mouse, new MouseState { position = _mousePosition }.WithButton(MouseButton.Left));
+                break;
+            case 2:
+                InputSystem.QueueStateEvent(_mouse, new MouseState { position = _mousePosition });
+                break;
+            case 3:
+                var hits = new System.Collections.Generic.List<RaycastResult>();
+                EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current) { position = _mousePosition }, hits);
+                var desktopModule = EventSystem.current.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+                File.WriteAllText("Temp/ExperimentPreviews/mouse-diagnostics.txt", "Position=" + _mousePosition + " Mouse=" + _mouse.position.ReadValue() + " Module=" + EventSystem.current.currentInputModule + " Focus=" + Application.isFocused + " Hits=" + string.Join(",", hits.Select(h => h.gameObject.name)) + " Point enabled=" + desktopModule?.point?.action?.enabled + " Click enabled=" + desktopModule?.leftClick?.action?.enabled);
+                Require(string.Join("|", ui.GetComponentsInChildren<Text>().Select(t => t.text)) != _orderBeforeMouse, "Mouse click did not reach the Nature first button.");
+                ui.GetComponentsInChildren<Button>().Single(b => b.name == "Random").onClick.Invoke();
+                InputSystem.RemoveDevice(_mouse);
+                _mouse = null;
+                File.WriteAllText("Temp/ExperimentPreviews/mouse-report.txt", "PASS: synthetic mouse move, press and release changed the setup condition order through UI raycasting. " + (ExperimentVR.Instance != null ? "VR editor layout." : "Desktop layout."));
+                break;
+        }
+        return true;
     }
 
     public static bool ExerciseVR(ExperimentUI ui)
