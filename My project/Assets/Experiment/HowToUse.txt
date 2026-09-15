@@ -1,0 +1,124 @@
+Tech Porto Sept 2026 experiment
+==============================
+
+Open Assets/Scenes/SampleScene.unity and press Play. The experiment builds its UI automatically.
+On the researcher setup screen, Preview Nature / Preview Urban lets you inspect
+each environment without recording participant responses. Back to setup exits a preview.
+
+Flow
+----
+1. Experimenter setup (ID, test mode, Nature/Urban order)
+2. Welcome message
+3. Eyes-open red-cross baseline: 3–2–1, beep/marker, 3 min
+4. Eyes-closed baseline: 3–2–1, beep/marker, 3 min
+5. Baseline Valence and Arousal ratings (1–6)
+6. First condition (Nature or Urban, randomized or researcher-selected)
+   - one minute to look around
+   - 3–2–1, beep/marker, four minutes looking straight ahead
+7. Valence, Arousal, Liking, Beauty, and Wanting ratings (each 1–6)
+8. Repeat steps 6–7 with the other condition
+9. Thank-you screen; events and responses saved as CSV
+
+The closed-eye baseline uses a large, white cue against the dark background.
+See Documentation/Brief-flow-review.md for the brief/diagram comparison and
+historical differences. See Documentation/Quest-setup.md for the Quest integration and remaining hardware/LSL validation.
+
+3D environments
+---------------
+  Assets/Experiment/Scenes/ConditionA_Nature.unity
+  Assets/Experiment/Scenes/ConditionB_Urban.unity
+
+Nature: 200 installed Stylized Nature Environment trees, a blue lake, rounded
+hills, shoreline stones and a curving path. The trees sway gently and small
+animated ripples move across the lake throughout the condition.
+Urban: the installed WhiteCity buildings, straight roads, pavements, lamps and
+concrete seating in a muted palette.
+
+Skyboxes use the installed SkySeries Freebie materials:
+  Nature: Assets/SkySeries Freebie/6SidedFluffball.mat
+  Urban / tower: Assets/SkySeries Freebie/DayInTheClouds.mat
+Menu: Experiment > Scenes > Apply Skyboxes Only updates these assignments
+without changing geometry, movement or mouse sensitivity.
+
+On the Nature scene root, NatureAmbientMotion exposes sway angle, sway speed
+and ripple speed. Disable that component to stop ambient motion. Extra trees
+are grouped under "Additional lakeside grove". Existing tree placement is kept.
+
+Both are real, editable Unity scenes with a seated camera at 1.65 m and matching
+68-degree field of view. Imported asset packages are not modified. Supporting
+materials are in Assets/Experiment/EnvironmentMaterials.
+
+Menu: Experiment > Scenes > Open Nature / Open Urban.
+Opening either scene directly and pressing Play previews just that environment.
+Menu: Experiment > Scenes > Create Missing Condition Scenes only creates absent
+scenes; it never rebuilds over your scene edits. All three scenes are registered
+in Build Settings and the experiment loads the conditions additively.
+
+Desktop controls: hold the right mouse button and drag, or use arrow keys to look
+around. Mouse sensitivity is 2.5 (previously 2.0), adjustable on Seated viewpoint
+> ConditionLook. Position stays fixed. At the one-minute beep, the desktop camera returns
+to its initial forward direction and mouse/keyboard look stops for four minutes.
+Instructions and the 3–2–1 countdown occur within the first minute; the scenery
+stays visible throughout. Prompts disappear after a few seconds.
+Environmental tree/water movement continues during the still phase; the
+instruction to sit still applies to the participant's viewpoint.
+
+Optional sound: select the condition scene root and assign an approved recording
+to ConditionEnvironment > Soundscape, then save the scene. It loops during the
+condition. No soundscape is supplied by default.
+
+Quest 3 / 3S: see Documentation/Quest-setup.md. The Android build creates a seated
+OpenXR rig, tracked controller pointers and world-space UI automatically. Use
+Experiment > Quest > Configure Android OpenXR, then Build Development APK.
+Headset sessions default to full durations; Test mode must be selected explicitly.
+Physical headset testing and EEG/LSL integration remain required.
+
+SAM response artwork
+--------------------
+The Valence and Arousal surveys use individual, transparent white-line cutouts
+made from the original square-man reference strips provided in the brief. They
+are stored in:
+  Assets/Experiment/Resources/Experiment/SAM
+Five distinct manikins are visual anchors above six independent response buttons,
+as shown in the brief. Figures preserve their aspect ratio. No anchor is duplicated.
+Buttons brighten and enlarge slightly on hover or keyboard focus. Keys 1–6 answer
+directly; Tab/arrow keys focus the answer row and Enter/Submit chooses a response.
+The chosen number flashes gold for 0.18 seconds before advancing. Double clicks
+are ignored. Headers show the current survey question and experience number.
+
+Durations
+---------
+Test mode (default): short timers so you can check the whole flow.
+For a real participant, uncheck Test mode on the setup screen.
+Real durations: 180s baselines; 300s conditions (60s explore + 240s still).
+Test mode is clearly marked in the condition overlay. It shortens the entire
+condition, including its prompts/countdown, to 12 seconds.
+
+You can also edit:
+  Assets/Experiment/Resources/Experiment/ExperimentConfig.asset
+  (menu: Experiment > Create Default Config)
+
+Skip a timer
+------------
+Hold Right Shift and press N.
+
+Saved data
+----------
+CSV files go to the persistent data folder.
+Menu: Experiment > Open Saved Data Folder
+
+EEG / LSL markers
+-----------------
+Every required timing point is recorded in the CSV. The static hook
+ExperimentMarker.OnMarker emits the same strings at runtime, ready for an LSL
+bridge to subscribe and push to the EEG stream. Required markers include:
+RestingState_EyesOpen_Begin, RestingState_EyesClosed_Begin,
+Condition_Nature/Urban_Begin, and Condition_Nature/Urban_LookStraightAhead.
+
+Verification
+------------
+Experiment > Verify > Render Scene Previews checks materials and renders both
+environments to Temp/ExperimentPreviews. Run Short Flow Check (from SampleScene,
+outside Play mode) exercises previews, both timed conditions, all 12 responses,
+duplicate-click protection and CSV saving. Synthetic data stays under Temp,
+outside the participant data directory. Unity may clear Temp when it closes.

@@ -1,0 +1,3 @@
+Drop nature photographs or stills into this folder.
+They will play as a slideshow during the 5-minute Nature condition.
+Supported formats: PNG, JPG.

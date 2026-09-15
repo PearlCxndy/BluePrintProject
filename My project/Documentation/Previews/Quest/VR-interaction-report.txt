@@ -1,0 +1,1 @@
+PASS: world-space UI; one tracked camera/listener; controller ray + trigger opens ID keyboard; thumbstick selects; A/X confirms; pause panel blocks setup and freezes/resumes the study clock; still phase preserves pose. Synthetic controller, not a physical headset test.

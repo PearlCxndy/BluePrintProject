@@ -1,0 +1,6 @@
+ConditionA_Nature: 271 renderers; 0 missing/unsupported materials; camera height 1.65
+Skybox: DayInTheClouds; mouse sensitivity: 2.5
+PASS: 200 trees; 198 visibly change rotation at t=4s; tree roots and camera fixed; ripple time advances; water shader compiles.
+ConditionB_Urban: 102 renderers; 0 missing/unsupported materials; camera height 1.65
+Skybox: SkyhighFluffycloudField; mouse sensitivity: 2.5
+Enabled build scenes: Assets/Scenes/SampleScene.unity, Assets/Experiment/Scenes/ConditionA_Nature.unity, Assets/Experiment/Scenes/ConditionB_Urban.unity

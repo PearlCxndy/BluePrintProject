@@ -2,7 +2,24 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+.DS_Store
 .utmp/
+
+# Nested Unity project folder in this repo
+My project/[Ll]ibrary/
+My project/[Tt]emp/
+My project/[Oo]bj/
+My project/[Bb]uild/
+My project/[Bb]uilds/
+My project/[Ll]ogs/
+My project/[Uu]ser[Ss]ettings/
+My project/[Mm]emoryCaptures/
+My project/[Rr]ecordings/
+My project/.plastic/
+My project/*.csproj
+My project/*.sln
+My project/*.slnx
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f0e8e8f611c479fbfcd3a86fcee2ea, type: 3}
+  m_Name: ExperimentConfig
+  m_EditorClassIdentifier: Assembly-CSharp::ExperimentConfig
+  baselineSeconds: 180
+  conditionSeconds: 300
+  slideIntervalSeconds: 15
+  testMode: 1
+  testBaselineSeconds: 8
+  testConditionSeconds: 12
+  testSlideIntervalSeconds: 3
+  countdownSeconds: 1
+  guidanceSeconds: 5
+  welcomeTitle: Welcome
+  welcomeBody: 'This is a sample Unity project for the in-person training/tech.
+
+
+    We will begin with two resting state recordings. For the first 3 minutes, you will be asked to look at a cross; for the second 3 minutes, you will be asked to close your eyes.
+
+
+    Please let the researcher know once you''re ready to begin.'
+  natureInstruction: Please look at the images. Sit comfortably and keep your attention on the screen.
+  cityInstruction: Please look at the images. Sit comfortably and keep your attention on the screen.

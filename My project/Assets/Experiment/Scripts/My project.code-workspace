@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../My project"
+		},
+		{
+			"path": "../../../../../../../../Downloads/Residential Buildings Set"
+		}
+	],
+	"settings": {
+		"dotnet.defaultSolution": "My project.slnx"
+	}
+}

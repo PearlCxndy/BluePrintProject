@@ -1,0 +1,12 @@
+Quest development APK validation — 15 September 2026
+PASS: Unity 6000.6.0f1 batch Android build exited successfully (code 0).
+PASS: Final experiment C# source and package manifest/lock match the validation project (22 files).
+PASS: APK signature verified (APK Signature Scheme v2).
+PASS: org.techporto.experiment, version 0.1 (code 1), ARM64 only.
+PASS: Minimum Android API 32, target API 34.
+PASS: VR launch category, required VR head tracking, focus-aware metadata.
+PASS: Supported Quest device identifiers: eureka|quest3s (Quest 3 / 3S).
+Artifact: Builds/Quest/TechPorto-Quest.apk
+Size: 60770891 bytes
+SHA-256: 9bba98ceb5a6b19f1a82464af333146ee8be8bcd34443ac24e5c3a74c59f2ff7
+This is a development build. No physical headset was attached; on-device performance, comfort and EEG/LSL synchronization remain unverified.

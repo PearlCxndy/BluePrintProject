@@ -1,0 +1,3 @@
+ConditionA_Nature: sky=PlanetaryEarth; mouse=2.5; trees=200; tree sway + animated lake
+ConditionB_Urban: sky=SkyhighFluffycloudField; mouse=2.5; no ambient animation
+Pre-update scene copies: Temp/ConditionSceneBackups/20260909-222710
