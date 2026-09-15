@@ -104,6 +104,26 @@ public class ExperimentUI : MonoBehaviour
         if (_pause != null) { _screen.SetActive(false); _pause.transform.SetAsLastSibling(); }
     }
 
+    public void ShowLaunchMenu(bool vr, Action onContinue, Action onBack)
+    {
+        ClearScreen();
+        var page = CreateSurveyPage("Tech Porto Experiment");
+        CreateText(page, "Choose how to play", 30, FontStyle.Bold, Text, new Vector2(0, 155), 900, 60);
+        CreateText(page, vr ? "Quest VR is ready. Use your controller to select VR version." :
+            "On this computer, choose Non-VR version and use your mouse or trackpad.",
+            22, FontStyle.Normal, Muted, new Vector2(0, 60), 900, 100);
+        CreateButton(page, "Non-VR version", new Vector2(-220, -65), 390, 76, () =>
+        {
+            if (!vr) onContinue();
+            else ShowWelcome("Play on your computer", "Open this project on your computer, press Play, and choose Non-VR version.\n\nOn Quest, choose VR version to play with tracked controllers.", onBack, "Back to mode selection");
+        });
+        CreateButton(page, "VR version", new Vector2(220, -65), 390, 76, () =>
+        {
+            if (vr) onContinue();
+            else ShowWelcome("Play on Meta Quest 3 / 3S", "Install Builds/Quest/TechPorto-Quest.apk on your Quest, then open Tech Porto Experiment inside the headset.\n\nConnecting a Quest by USB does not turn this Mac preview into headset VR. You can play here using Non-VR version.", onBack, "Back to mode selection");
+        });
+    }
+
     public void ShowSetup(
         string defaultId,
         bool testMode,

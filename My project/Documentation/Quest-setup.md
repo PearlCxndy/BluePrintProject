@@ -17,6 +17,7 @@ Application identifier: `org.techporto.experiment`. The existing Built-in Render
 
 ## Participant and researcher controls
 
+- The shared start screen offers **Non-VR version** and **VR version**. Choose Non-VR on your Mac and VR inside the Quest. Selecting the other option shows guidance and a Back button.
 - Remain seated. Head movement controls the view; there is no artificial walking or turning.
 - Point either controller at a button and squeeze its trigger.
 - Alternatively use either thumbstick to move the highlighted selection, then A (right controller) or X (left controller) to confirm.
@@ -48,13 +49,13 @@ Copy participant data off the headset before uninstalling the app. No automatic 
 
 ## Validation
 
-The desktop and simulated VR short-flow checks passed on 14 September 2026. Both exercised the two environments and all 12 responses. The VR input check also passed controller ray/trigger, thumbstick navigation, A/X confirmation and study-clock pause/resume. CSV contents were checked for 12 unique ratings in the 1–6 range and a final SessionCompleted event.
+The desktop and simulated VR short-flow checks passed on 15 September 2026. Both checked the shared mode-selection screen, the alternate-device guidance and its Back button, then exercised the two environments and all 12 responses. The VR input check also passed controller ray/trigger, thumbstick navigation, A/X confirmation and study-clock pause/resume. CSV contents were checked for 12 unique ratings in the 1–6 range and a final SessionCompleted event.
 
 Reports: [VR flow](Previews/Quest/VR-flow-report.txt), [controller interaction](Previews/Quest/VR-interaction-report.txt), [desktop flow](Previews/Quest/Desktop-flow-report.txt).
 
 The final Android build and APK checks passed on 15 September 2026: [build report and checksum](Previews/Quest/APK-build-report.txt).
 
-Previews: [VR setup](Previews/Quest/VR-Setup.png), [SAM survey](Previews/Quest/VR-SAM.png), [closed-eye cue](Previews/Quest/VR-EyesClosed.png).
+Previews: [desktop start screen](Previews/Quest/Desktop-Launch.png), [VR start screen](Previews/Quest/VR-Launch.png), [VR setup](Previews/Quest/VR-Setup.png), [SAM survey](Previews/Quest/VR-SAM.png), [closed-eye cue](Previews/Quest/VR-EyesClosed.png).
 
 No physical headset was connected during these checks. They do not establish on-device frame rate, stereo correctness, comfort or EEG synchronization.
 

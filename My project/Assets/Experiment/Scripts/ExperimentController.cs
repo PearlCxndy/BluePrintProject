@@ -38,9 +38,15 @@ public class ExperimentController : MonoBehaviour
         // Not in Awake: a scene is only marked loaded once every Awake in it has run.
         // The host owns lighting while the UI is up, even with a condition scene open beside it.
         if (_hostScene.isLoaded) SceneManager.SetActiveScene(_hostScene);
-        ShowSetup();
+        ShowLaunchMenu();
     }
     void Update() { if (ExperimentInput.Held(Key.RightShift) && ExperimentInput.Pressed(Key.N)) _skipRequested = true; }
+
+    void ShowLaunchMenu()
+    {
+        _ui.SetProgress("CHOOSE HOW TO PLAY");
+        _ui.ShowLaunchMenu(ExperimentVR.Instance != null, ShowSetup, ShowLaunchMenu);
+    }
 
     void ShowSetup()
     {

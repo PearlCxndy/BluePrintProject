@@ -171,6 +171,21 @@ public static class ExperimentVerification
             File.WriteAllText(Output + "/data-location.txt", "Normal participant data directory: " + original);
         }
         var ui = controller.GetComponent<ExperimentUI>();
+        var launchButtons = ui.GetComponentsInChildren<Button>();
+        var launch = launchButtons.FirstOrDefault(b => b.name == (ExperimentVR.Instance != null ? "VR version" : "Non-VR version"));
+        if (launch != null)
+        {
+            if (Captures.Add("launch"))
+            {
+                CaptureUI(ui, "Launch");
+                launchButtons.Single(b => b.name == (ExperimentVR.Instance != null ? "Non-VR version" : "VR version")).onClick.Invoke();
+                ui.GetComponentsInChildren<Button>().Single(b => b.name == "Back to mode selection").onClick.Invoke();
+                launch = ui.GetComponentsInChildren<Button>().Single(b => b.name == (ExperimentVR.Instance != null ? "VR version" : "Non-VR version"));
+            }
+            launch.onClick.Invoke();
+            _nextClick = now + 1;
+            return;
+        }
         if (QuestVerification.ExerciseVR(ui)) return;
         var buttons = ui.GetComponentsInChildren<Button>();
         var eyes = ui.GetComponentInChildren<ClosedEyesGraphic>();

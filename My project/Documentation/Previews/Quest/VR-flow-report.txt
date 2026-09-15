@@ -1,3 +1,3 @@
 PASS: both previews, Valence → Arousal, both conditions, all 12 ratings, duplicate-click protection, CSV export.
-Nature: explore 2.402s; total 12.014s (test mode).
-Urban: explore 2.412s; total 12.009s (test mode).
+Nature: explore 2.403s; total 12.000s (test mode).
+Urban: explore 2.403s; total 12.013s (test mode).

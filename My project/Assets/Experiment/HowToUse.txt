@@ -2,6 +2,8 @@ Tech Porto Sept 2026 experiment
 ==============================
 
 Open Assets/Scenes/SampleScene.unity and press Play. The experiment builds its UI automatically.
+Choose Non-VR version on your computer, or VR version inside the Quest headset.
+The other button explains how to use that device and lets you return.
 On the researcher setup screen, Preview Nature / Preview Urban lets you inspect
 each environment without recording participant responses. Back to setup exits a preview.
 
